@@ -1,8 +1,11 @@
+const [btns, inputs] =[document.querySelectorAll("button"),document.querySelectorAll("input")]
+// const btns = document.querySelectorAll("button")
+// const inputs = document.querySelectorAll("input")
 
-const btns = document.querySelectorAll("button")
-const inputs = document.querySelectorAll("input")
-const infoTxt = document.querySelector(".info-txt")
-const affichage = document.querySelector(".affichage")
+
+const [infoTxt,affichage] = [document.querySelector(".info-txt"),document.querySelector(".affichage")]
+// const infoTxt = document.querySelector(".info-txt")
+// const affichage = document.querySelector(".affichage")
 let dejaFait = false
 
 
@@ -19,12 +22,14 @@ let year = today.getFullYear()
 // console.log(month);
 // console.log(year);
 
-document.querySelector('input[type=date]').value = `${year}-${month}-${day}`
+// document.querySelector('input[type=date]').value = day, month,year
+var date = document.querySelector('Input[type="date"]')
 
+date.value = `${day}-${month}-${year}`
 
 btns.forEach(btn => {
     
-    btn.addEventListener("click",btnAction)
+    btn.addEventListener('click',btnAction)
 })
 
 
@@ -42,9 +47,6 @@ function btnAction  (event) {
         nvOj[attrName] = attrValeur
 
         // console.log(nvOj[attrName]);
-
-
-    
 
     })
     // console.log(nvOj);
@@ -64,9 +66,9 @@ function btnAction  (event) {
 
 const creerCookie = (name, value, exp) => {
 
-    infoTxt.innerText = ""
+    infoTxt.innerText = " "
     affichage.childNodes.forEach(child => child.remove)
-    affichage.innerHTML =""
+    affichage.innerHTML = " "
 //si le cookie a un meme nom 
     
     let cookies = document.cookie.split(";")
@@ -113,7 +115,7 @@ const creerCookie = (name, value, exp) => {
 
         let cookies = document.cookie.split(";")
         if (cookies.join() ===" "){
-            infoTxt.innerText = "Pas de cookiesà afficher"
+            infoTxt.innerText = "Pas de cookies à afficher"
             return
         }
 
@@ -124,7 +126,7 @@ const creerCookie = (name, value, exp) => {
     
         infoTxt.innerText="Cliquez sur un cookie dans la liste pour le supprimer"
         let item = document.createElement("li")
-        item.innerText = `Nom:${decodeURIComponent(formatCookie[0])},Valeur:${decodeURIComponent(formatCookie[1])}`
+        item.innerText = `Nom: ${decodeURIComponent(formatCookie[0])}, Valeur: ${decodeURIComponent(formatCookie[1])}`
             affichage.appendChild(item)
 
 
@@ -133,14 +135,13 @@ const creerCookie = (name, value, exp) => {
 
             item.addEventListener("click", () => {
                 
-                document.cookie = `${formatCookie[0].toUpperCase()} =;expirees=${new Date(0)}` 
-                item.innerText = `Cookie${formatCookie[0].toUpperCase()}  supprimé;`
+                document.cookie = `${formatCookie[0].toUpperCase()} =;expires=${new Date(0)}` 
+                item.innerText = `Cookie ${formatCookie[0].toUpperCase()}  supprimé;`
                 
                 setTimeout(()=> {
                     item.remove()
                 },1000)
             })
-        })
     }
 
     listeCookies()
